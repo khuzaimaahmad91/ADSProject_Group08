@@ -20,16 +20,30 @@ class HalfAdderTester extends AnyFlatSpec with ChiselScalatestTester {
   "HalfAdder" should "work" in {
     test(new HalfAdder).withAnnotations(Seq(WriteVcdAnnotation)) { dut =>
 
-          /*dut.io.a.poke(...)
-           *dut.io.b.poke(...)
-           *dut.io.ci.poke(...)
-           *dut.io.s.expect(...)
-           *dut.io.co.expect(...)
-           *...
-           *TODO: Insert your test cases
-           */
+      // Test case 1: 0 0 : 0 0 (a b : s co)
+      dut.io.a.poke(0.U)
+      dut.io.b.poke(0.U)
+      dut.io.s.expect(0.U)
+      dut.io.co.expect(0.U)
 
-        }
-    } 
+      // Test case 2: 0 1 : 1 0 (a b : s co)
+      dut.io.a.poke(0.U)
+      dut.io.b.poke(1.U)
+      dut.io.s.expect(1.U)
+      dut.io.co.expect(0.U)
+
+      // Test case 3: 1 0 : 1 0 (a b : s co)
+      dut.io.a.poke(1.U)
+      dut.io.b.poke(0.U)
+      dut.io.s.expect(1.U)
+      dut.io.co.expect(0.U)
+
+      // Test case 4: 1 1 : 0 1 (a b : s co)
+      dut.io.a.poke(1.U)
+      dut.io.b.poke(1.U)
+      dut.io.s.expect(0.U)
+      dut.io.co.expect(1.U)
+    }
+  }
 }
 
