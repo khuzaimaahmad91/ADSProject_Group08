@@ -21,11 +21,11 @@ class ReadSerialTester extends AnyFlatSpec with ChiselScalatestTester {
 
       // Helper function to initialize the receiver
       def initialize(): Unit = {
-        dut.io.reset_n.poke(false.B) // reset the system "active low reset"
+        dut.io.reset_n.poke(true.B) // reset the system "active high reset"
         dut.io.rxd.poke(true.B) // sent '1' on rxd line.
         dut.clock.step() // clock step
 
-        dut.io.reset_n.poke(true.B) // reset signal high
+        dut.io.reset_n.poke(false.B) // reset signal low
         dut.io.valid.expect(false.B) // valid signal should be low.
       }
 
@@ -145,13 +145,13 @@ class ReadSerialTester extends AnyFlatSpec with ChiselScalatestTester {
       }
 
       // Assert reset
-      dut.io.reset_n.poke(false.B)
+      dut.io.reset_n.poke(true.B)
       dut.clock.step()
 
       dut.io.valid.expect(false.B)
 
       // Release reset
-      dut.io.reset_n.poke(true.B)
+      dut.io.reset_n.poke(false.B)
 
       // ----------------------------------
       // TC10: Transmission after reset

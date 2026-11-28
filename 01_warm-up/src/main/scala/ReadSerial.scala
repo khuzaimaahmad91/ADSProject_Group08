@@ -33,7 +33,7 @@ class Controller extends Module {
 
   // State machine logic
 
-  when(!io.reset_n) { // if reset is received i.e. reset_n equals zero
+  when(io.reset_n) { // if reset is received i.e. reset_n equals 1/true
     receiving := false.B  // set receiving to false
     validReg := false.B   // set valid to false
 
@@ -82,7 +82,7 @@ class Counter extends Module {
   // state machine
 
   // Counter functionality
-  when(!io.reset_n) { // if reset is received i.e. reset_n equals zero
+  when(io.reset_n) { // if reset is received i.e. reset_n equals 1/true
     count := 0.U      // set internal counter to zero.
 
   }.elsewhen(io.cnt_en) {
